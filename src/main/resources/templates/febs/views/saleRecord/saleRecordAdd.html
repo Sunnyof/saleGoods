@@ -1,0 +1,152 @@
+<style>
+    #user-add {
+        padding: 20px 25px 25px 0;
+    }
+</style>
+<div class="layui-fluid" id="user-add">
+    <form class="layui-form" action="" lay-filter="user-add-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">商品类型：</label>
+            <div class="layui-input-block" id="saleRecord-add-category"></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">价格：</label>
+            <div class="layui-input-block">
+                <input type="number"  id="price" name="price" max="9999.99" min="0.01"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">数量：</label>
+            <div class="layui-input-block">
+                <input type="number" id="amount" name="amount" max="9999.99" min="0.01"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">总价：</label>
+            <div class="layui-input-block">
+                <input onkeyup='clearNoNum(this)' type="number" id="totalBalance" name="totalBalance" max="9999.99" min="0.01" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注：</label>
+            <div class="layui-input-block">
+                <textarea name="remark" maxlength="100" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item febs-hide">
+            <button class="layui-btn" lay-submit="" lay-filter="user-add-form-submit" id="submit"></button>
+            <button type="reset" class="layui-btn" id="reset"></button>
+        </div>
+    </form>
+</div>
+
+<script>
+    layui.use(['febs', 'form', 'validate', 'xmSelect'], function () {
+        let $ = layui.$,
+            febs = layui.febs,
+            layer = layui.layer,
+            form = layui.form,
+            xmSelect = layui.xmSelect,
+            validate = layui.validate,
+            roleXmSelect;
+
+        $(function () {
+            //输入框的值改变时触发
+            $("#amount").on("input", function (e) {
+                //获取input输入的值
+                var price = $("#price").val();
+                var amount = $('#amount').val();
+                $('#totalBalance').val(price*amount)
+            });
+
+            //输入框的值改变时触发
+            $("#price").on("input", function (e) {
+                //获取input输入的值
+                var price = $("#price").val();
+                var amount = $('#amount').val();
+                $('#totalBalance').val(price*amount)
+            });
+        });
+
+        form.verify(validate);
+        form.render();
+        roleXmSelect = xmSelect.render({
+            el: '#saleRecord-add-category',
+            on: function (data) {
+                console.log()
+                //可以return一个数组, 代表想选中的数据
+                //arr:  当前多选已选中的数据
+                var arr = data.arr;
+                //change, 此次选择变化的数据,数组
+                var change = data.change;
+                //isAdd, 此次操作是新增还是删除
+                var isAdd = data.isAdd;
+
+                if (isAdd) {
+                    //选择商品后自动展示价格
+                    $('#price').val(data.arr[0].price);
+                }
+            },
+            model: {
+                icon: 'hidden',
+            },
+            //隐藏工具栏
+            toolbar: {show: false},
+            //搜索框
+            filterable: true,
+            //单选
+            radio: true,
+            //选中后消失
+            clickClose: true,
+            name: 'categoryId',
+            theme: {
+                color: '#52c41a',
+            },
+            prop: {
+                name: 'name',
+                value: 'id'
+            },
+
+            data: []
+        });
+
+
+        febs.get(ctx + 'category', null, function (data) {
+            roleXmSelect.update({
+                data: data.data,
+                autoRow: true,
+            })
+        });
+
+        form.on('submit(user-add-form-submit)', function (data) {
+            if (!data.field.categoryId) {
+                febs.alert.warn('请选择商品类型');
+                return false;
+            }
+            febs.post(ctx + 'saleRecord', data.field, function () {
+                layer.closeAll();
+                febs.alert.success('添加成功');
+                $('#febs-saleRecord').find('#query').click();
+            });
+            return false;
+        });
+    });
+
+    function clearNoNum(obj) {
+        obj.value = obj.value.replace(/[^\d.]/g, "");  //清除“数字”和“.”以外的字符
+        obj.value = obj.value.replace(/^\./g, ""); //验证第一个字符是数字
+        obj.value = obj.value.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的
+        obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+        obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');//只能输入两个小数
+        if (obj.value.indexOf(".") < 0 && obj.value != "") {//以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
+            obj.value = parseFloat(obj.value);
+        }
+    }
+
+
+</script>

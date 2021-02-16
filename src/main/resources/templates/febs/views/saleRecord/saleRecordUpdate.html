@@ -1,0 +1,107 @@
+<style>
+    #user-update {
+        padding: 20px 25px 25px 0;
+    }
+</style>
+<div class="layui-fluid" id="user-update">
+    <form class="layui-form" action="" lay-filter="user-update-form">
+        <div class="layui-form-item febs-hide">
+            <label class="layui-form-label febs-form-item-require">记录Id：</label>
+            <div class="layui-input-block">
+                <input type="text" name="id" data-th-value="${saleRecord.id}">
+            </div>
+        </div>
+        <div class="layui-form-item febs-hide">
+            <label class="layui-form-label febs-form-item-require" >商品id ：</label>
+            <div class="layui-input-block">
+                <input type="text" name="categoryId" id ="categoryId" minlength="2" maxlength="10"
+                       autocomplete="off" class="layui-input" >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require" >商品名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="categoryName" minlength="2" maxlength="10"
+                       autocomplete="off" class="layui-input" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" febs-form-item-require>价格：</label>
+            <div class="layui-input-block">
+                <input type="number" name="price" id="price" max="9999.99" min="0.01" autocomplete="off" class="layui-input" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">售卖数量：</label>
+            <div class="layui-input-block">
+                <input type="text" name="amount" id="amount" min="1" maxlength="50" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">销售金额：</label>
+            <div class="layui-input-block">
+                <input type="number" name="totalBalance" id="totalBalance" max="9999.99" min="0.01" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注：</label>
+            <div class="layui-input-block">
+                <textarea name="remark" maxlength="100" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item febs-hide">
+            <button class="layui-btn" lay-submit="" lay-filter="user-update-form-submit" id="submit"></button>
+        </div>
+    </form>
+</div>
+
+<script data-th-inline="javascript">
+    layui.use(['febs', 'form', 'xmSelect', 'validate'], function () {
+        let $ = layui.$,
+            febs = layui.febs,
+            layer = layui.layer,
+            form = layui.form,
+            saleRecord = [[${saleRecord}]],
+            validate = layui.validate;
+        form.verify(validate);
+        form.render();
+
+        initCategoryValue();
+
+
+        $(function () {
+            //输入框的值改变时触发
+            $("#amount").on("input", function (e) {
+                //获取input输入的值
+                var price = $("#price").val();
+                var amount = $('#amount').val();
+                $('#totalBalance').val(price * amount)
+            });
+        });
+
+        function initCategoryValue() {
+            form.val("user-update-form", {
+                "categoryName": saleRecord.categoryName,
+                "price": saleRecord.price,
+                "amount":saleRecord.amount,
+                "totalBalance":saleRecord.totalBalance,
+                "remark":saleRecord.remark
+            });
+        }
+
+        form.on('submit(user-update-form-submit)', function (data) {
+            if (febs.nativeEqual(data.field, saleRecord)) {
+                febs.alert.warn('数据未作任何修改！');
+                return false;
+            }
+            febs.post(ctx + 'saleRecord/update', data.field, function () {
+                layer.closeAll();
+                febs.alert.success(saleRecord.categoryName + '修改成功');
+                // parent.location.reload()
+                $('#febs-saleRecord').find('#query').click();
+            });
+            return false;
+        });
+    });
+</script>
