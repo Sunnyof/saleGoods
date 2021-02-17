@@ -1,0 +1,120 @@
+2021-02-16 20:56:41 febs-shiro ERROR main org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+An attempt was made to call a method that does not exist. The attempt was made from the following location:
+
+    javax.el.ELManager.getExpressionFactory(ELManager.java:38)
+
+The following method did not exist:
+
+    'javax.el.ExpressionFactory javax.el.ELUtil.getExpressionFactory()'
+
+The method's class, javax.el.ELUtil, is available from the following locations:
+
+    jar:file:/D:/work/saleGoods/lib/javax.servlet.jsp.jar!/javax/el/ELUtil.class
+    jar:file:/C:/Users/Tom/.m2/repository/org/glassfish/jakarta.el/3.0.3/jakarta.el-3.0.3.jar!/javax/el/ELUtil.class
+
+The class hierarchy was loaded from the following locations:
+
+    javax.el.ELUtil: file:/D:/work/saleGoods/lib/javax.servlet.jsp.jar
+
+
+Action:
+
+Correct the classpath of your application so that it contains a single, compatible version of javax.el.ELUtil
+
+2021-02-16 20:58:09 febs-shiro ERROR main org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+An attempt was made to call a method that does not exist. The attempt was made from the following location:
+
+    javax.el.ELManager.getExpressionFactory(ELManager.java:38)
+
+The following method did not exist:
+
+    'javax.el.ExpressionFactory javax.el.ELUtil.getExpressionFactory()'
+
+The method's class, javax.el.ELUtil, is available from the following locations:
+
+    jar:file:/D:/work/saleGoods/lib/javax.servlet.jsp.jar!/javax/el/ELUtil.class
+    jar:file:/C:/Users/Tom/.m2/repository/org/glassfish/jakarta.el/3.0.3/jakarta.el-3.0.3.jar!/javax/el/ELUtil.class
+
+The class hierarchy was loaded from the following locations:
+
+    javax.el.ELUtil: file:/D:/work/saleGoods/lib/javax.servlet.jsp.jar
+
+
+Action:
+
+Correct the classpath of your application so that it contains a single, compatible version of javax.el.ELUtil
+
+2021-02-16 20:59:24 febs-shiro ERROR main org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+An attempt was made to call a method that does not exist. The attempt was made from the following location:
+
+    javax.el.ELManager.getExpressionFactory(ELManager.java:38)
+
+The following method did not exist:
+
+    'javax.el.ExpressionFactory javax.el.ELUtil.getExpressionFactory()'
+
+The method's class, javax.el.ELUtil, is available from the following locations:
+
+    jar:file:/D:/work/saleGoods/lib/javax.servlet.jsp.jar!/javax/el/ELUtil.class
+    jar:file:/C:/Users/Tom/.m2/repository/org/glassfish/jakarta.el/3.0.3/jakarta.el-3.0.3.jar!/javax/el/ELUtil.class
+
+The class hierarchy was loaded from the following locations:
+
+    javax.el.ELUtil: file:/D:/work/saleGoods/lib/javax.servlet.jsp.jar
+
+
+Action:
+
+Correct the classpath of your application so that it contains a single, compatible version of javax.el.ELUtil
+
+2021-02-16 21:04:01 febs-shiro ERROR main org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+An attempt was made to call a method that does not exist. The attempt was made from the following location:
+
+    javax.el.ELManager.getExpressionFactory(ELManager.java:38)
+
+The following method did not exist:
+
+    'javax.el.ExpressionFactory javax.el.ELUtil.getExpressionFactory()'
+
+The method's class, javax.el.ELUtil, is available from the following locations:
+
+    jar:file:/D:/work/saleGoods/lib/javax.servlet.jsp.jar!/javax/el/ELUtil.class
+    jar:file:/C:/Users/Tom/.m2/repository/org/glassfish/jakarta.el/3.0.3/jakarta.el-3.0.3.jar!/javax/el/ELUtil.class
+
+The class hierarchy was loaded from the following locations:
+
+    javax.el.ELUtil: file:/D:/work/saleGoods/lib/javax.servlet.jsp.jar
+
+
+Action:
+
+Correct the classpath of your application so that it contains a single, compatible version of javax.el.ELUtil
+
